@@ -26,6 +26,7 @@ def column_names_to_attribute_names(column_names):
 
 def parse_text(text):
     '''
+    Example usage:
     from rnaseq_pipeline_output_parser import parse_tables
     fastqc_data = open('fastqc_data.txt').read()
     new_fastqc_data = []
@@ -43,9 +44,10 @@ def parse_text(text):
     reading_table = False
     splitline_old = ''
     header_list = []
+    line_before_header = []
     for line in text:
-        splitline = line.strip().split('\t')
-        if len(splitline) == splitline_length_old:
+        splitline = line.strip('\n').split('\t')
+        if len(splitline) > 1 and len(splitline) == splitline_length_old:
             table_length += 1
             if not reading_table:
                 header = splitline_old
